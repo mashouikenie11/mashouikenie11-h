@@ -1,0 +1,59 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.0.2.RELEASE")
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion '1.12'
+}
+
+ext {
+    libraries = [
+            // default dependencies for an ikenga server module
+            ikengaModule: [
+                    "org.apache.commons:commons-lang3:3.3.2",
+                    "commons-io:commons-io:2.4",
+                    "org.springframework.boot:spring-boot-starter:1.0.2.RELEASE",
+                    "org.springframework.boot:spring-boot-starter-data-jpa:1.0.2.RELEASE",
+                    "org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.Final"
+            ],
+
+            // default test dependencies for an ikenga server module
+            ikengaTest: [
+                    "org.springframework.boot:spring-boot-starter-test:1.0.2.RELEASE",
+                    "org.hsqldb:hsqldb:2.3.2",
+            ]
+    ]
+
+}
+
+subprojects {
+
+    apply plugin: 'java'
+    version = '0.0.1-SNAPSHOT'
+
+    sourceCompatibility = '1.8'
+    targetCompatibility = '1.8'
+
+    repositories {
+        mavenCentral()
+        maven {
+            url "http://maven.tmatesoft.com/content/repositories/releases/"
+        }
+    }
+
+    dependencies {
+        testCompile(
+                "junit:junit:4.11",
+        )
+    }
+
+}
